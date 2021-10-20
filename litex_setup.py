@@ -183,9 +183,9 @@ if "install" in sys.argv[1:]:
         if need_develop:
             os.chdir(os.path.join(current_path, name))
             if "--user" in sys.argv[1:]:
-                subprocess.check_call("python3 setup.py develop --user", shell=True)
+                subprocess.check_call("pip3 install --user -e .", shell=True)
             else:
-                subprocess.check_call("python3 setup.py develop", shell=True)
+                subprocess.check_call("pip3 install -e", shell=True)
 
     if "--user" in sys.argv[1:]:
         if ".local/bin" not in os.environ.get("PATH", ""):
