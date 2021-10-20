@@ -14,6 +14,7 @@ jobs:
       - name: Install Tools
         run: |
           sudo apt-get install wget build-essential python3
+          sudo apt-get install verilator
           pip3 install setuptools
           pip3 install requests
           pip3 install meson
