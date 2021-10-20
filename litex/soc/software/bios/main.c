@@ -47,6 +47,8 @@
 #include <liblitesdcard/sdcard.h>
 #include <liblitesata/sata.h>
 
+#include "sim_debug.h"
+
 static void boot_sequence(void)
 {
 #ifdef CSR_UART_BASE
@@ -174,6 +176,15 @@ printf("\n");
 	video_framebuffer_dma_enable_write(0);
 	video_framebuffer_vtg_enable_write(1);
 	video_framebuffer_dma_enable_write(1);
+#endif
+
+#ifdef BIOS_TEST_MODE
+	printf("Bios successfully booted.\n");
+#ifdef CSR_SIM_FINISH_BASE
+	printf("Exiting simulation.\n");
+  	sim_finish();
+#endif
+	return 0;
 #endif
 
 	init_dispatcher();

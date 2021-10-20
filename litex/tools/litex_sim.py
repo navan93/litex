@@ -143,6 +143,7 @@ class SimSoC(SoCCore):
         with_gpio             = False,
         sim_debug             = False,
         trace_reset_on        = False,
+        bios_test_mode        = None,
         **kwargs):
         platform     = Platform()
         sys_clk_freq = int(1e6)
@@ -303,6 +304,9 @@ class SimSoC(SoCCore):
         else:
             self.comb += platform.trace.eq(1)
 
+        if bios_test_mode:
+            self.add_constant("BIOS_TEST_MODE")
+
 # Build --------------------------------------------------------------------------------------------
 
 def generate_gtkw_savefile(builder, vns, trace_fst):
@@ -373,6 +377,7 @@ def sim_args(parser):
     parser.add_argument("--sim-debug",            action="store_true",     help="Add simulation debugging modules")
     parser.add_argument("--gtkwave-savefile",     action="store_true",     help="Generate GTKWave savefile")
     parser.add_argument("--non-interactive",      action="store_true",     help="Run simulation without user input")
+    parser.add_argument("--bios-test-mode",       action="store_true",     help="Enables the test mode (no interactive console)")
 
 def main():
     parser = argparse.ArgumentParser(description="Generic LiteX SoC Simulation")
@@ -445,6 +450,7 @@ def main():
         trace_reset_on     = trace_start > 0 or trace_end > 0,
         sdram_init         = [] if args.sdram_init is None else get_mem_data(args.sdram_init, cpu.endianness),
         spi_flash_init     = None if args.spi_flash_init is None else get_mem_data(args.spi_flash_init, "big"),
+        bios_test_mode     = args.bios_test_mode,
         **soc_kwargs)
     if args.ram_init is not None or args.sdram_init is not None:
         soc.add_constant("ROM_BOOT_ADDRESS", soc.mem_map["main_ram"])
