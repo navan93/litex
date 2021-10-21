@@ -13,15 +13,30 @@ class TestCPU(unittest.TestCase):
         cmd = cmd.split(' ')
         result = subprocess.check_output(cmd)
         result = str(result)
-        print(result)
         if 'Bios successfully booted.' not in result:
             self.fail()
 
     def test_vexriscv(self):
         self.boot_test("vexriscv")
 
+    def test_vexriscv_smp(self):
+        self.boot_test("vexriscv_smp")
+
     def test_cv32e40p(self):
         self.boot_test("cv32e40p")
 
     def test_ibex(self):
         self.boot_test("ibex")
+
+    def test_serv(self):
+        self.boot_test("serv")
+
+    def test_femtorv(self):
+        self.boot_test("femtorv")
+
+    def test_picorv32(self):
+        self.boot_test("picorv32")
+
+    def test_minerva(self):
+        self.boot_test("minerva")
+
