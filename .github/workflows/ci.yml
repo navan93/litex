@@ -1,6 +1,6 @@
 name: ci
 
-on: [push, pull_request, workflow_dispatch]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -19,7 +19,7 @@ jobs:
           pip3 install requests
           pip3 install meson
           pip3 install ninja
-          ninja --version
+          pip3 install nmigen-yosys
 
       # Install (n)Migen / LiteX / Cores
       - name: Install LiteX

@@ -11,9 +11,10 @@ class TestCPU(unittest.TestCase):
     def boot_test(self, cpu_type):
         cmd = 'lxsim --bios-test-mode --sim-debug --non-interactive --cpu-type={}'.format(cpu_type)
         cmd = cmd.split(' ')
-        result = subprocess.check_output(cmd)
-        result = str(result)
-        if 'Bios successfully booted.' not in result:
+        p = subprocess.run(cmd, stdout=subprocess.PIPE)
+        result = str(p.stdout)
+        if 'Bios successfully booted.' not in result or p.returncode != 0:
+            print(result)
             self.fail()
 
     def test_vexriscv(self):
