@@ -8,8 +8,8 @@ import subprocess
 import unittest
 
 class TestCPU(unittest.TestCase):
-    def test_boot(self):
-        cmd = 'lxsim --bios-test-mode --sim-debug --non-interactive'
+    def boot_test(self, cpu_type):
+        cmd = 'lxsim --bios-test-mode --sim-debug --non-interactive --cpu-type={}'.format(cpu_type)
         cmd = cmd.split(' ')
         result = subprocess.check_output(cmd)
         result = str(result)
@@ -17,3 +17,11 @@ class TestCPU(unittest.TestCase):
         if 'Bios successfully booted.' not in result:
             self.fail()
 
+    def test_vexriscv(self):
+        self.boot_test("vexriscv")
+
+    def test_cv32e40p(self):
+        self.boot_test("cv32e40p")
+
+    def test_ibex(self):
+        self.boot_test("ibex")
