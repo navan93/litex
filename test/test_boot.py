@@ -10,7 +10,7 @@ import sys
 
 class TestCPU(unittest.TestCase):
     def boot_test(self, cpu_type):
-        cmd = f'lxsim --cpu-type={cpu_type}'
+        cmd = f'lxsim --cpu-type={cpu_type} --doc'
         litex_prompt = [b'\033\[[0-9;]+mlitex\033\[[0-9;]+m>']
         is_success = True
         with open("/tmp/test_boot_log", "wb") as result_file:
