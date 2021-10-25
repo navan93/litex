@@ -13,7 +13,7 @@ jobs:
       # Install Tools
       - name: Install Tools
         run: |
-          sudo apt-get install wget build-essential python3
+          sudo apt-get install wget build-essential python3 python3-pip
           sudo apt-get install verilator libevent-dev libjson-c-dev
 
       # Install (n)Migen / LiteX / Cores
